@@ -8,6 +8,7 @@ def main():
         "change": "change the contact",
         "show": "show contacts phone ",
         "all": "show all contacts",
+        "remove": "remow the contact",
         "add-ph": "add phone to contact",
         "edit-ph": "change the contacts phone",
         "add-bd": 'format "DD.MM.YYYY"',
@@ -49,16 +50,13 @@ def main():
                 print("\nHow can I help you?\n")
 
             case "add":
-                contact_name = promt("Enter contacts Name: ",ignore_caps=True)
+                contact_name = promt("Enter contacts Name: ")
                 if contact_name:
                     book.set_record(Record(contact_name))
 
             case "change":
                 contact_name = promt(
-                    "Enter Name: ",
-                    tuple(book.data.keys()),
-                    "Name incorrect!",
-                    ignore_caps=True,
+                    "Enter Name: ", tuple(book.data.keys()), "Name incorrect!"
                 )
                 contact = book.get_record(contact_name)
                 new_contact_name = promt("Enter new Name: ")
@@ -67,17 +65,14 @@ def main():
 
             case "add-ph": 
                 if book.data:                    
-                    contact_name = promt("Enter Name: ", tuple(book.data.keys()), "Name incorrect!",ignore_caps=True)
+                    contact_name = promt("Enter Name: ", tuple(book.data.keys()), "Name incorrect!")
                     new_phone = promt("Enter new phone: ")
                     book.get_record(contact_name).phones.set_phone(new_phone)
 
             case "edit-ph":
                 if book.data:
                     contact_name = promt(
-                        "Enter Name: ",
-                        tuple(book.data.keys()),
-                        "Name incorrect!",
-                        ignore_caps=True,
+                        "Enter Name: ", tuple(book.data.keys()), "Name incorrect!"
                     )
                     contact = book.get_record(contact_name)
                     if contact.phones:
@@ -94,19 +89,21 @@ def main():
 
             case "show":
                 contact_name = promt(
-                    "Enter Name: ", tuple(book.data.keys()), "Name incorrect!",ignore_caps=True
+                    "Enter Name: ", tuple(book.data.keys()), "Name incorrect!"
                 )
                 print(book.get_record(contact_name))
 
             case "all":
                 book.show_all()
 
+            case "remove":
+                contact_name = promt("Enter contacts Name: ")
+                if contact_name:
+                    book.delete_record(contact_name)
+
             case "add-bd":
                 contact_name = promt(
-                    "Enter Name: ",
-                    tuple(book.data.keys()),
-                    "Name incorrect!",
-                    ignore_caps=True,
+                    "Enter Name: ", tuple(book.data.keys()), "Name incorrect!"
                 )
                 contact = book.get_record(contact_name)
                 contact.birthday.birthday = promt("Enter birthday DD.MM.YYYY: ")
@@ -114,14 +111,11 @@ def main():
 
             case "show-bd":
                 contact_name = promt(
-                    "Enter Name: ",
-                    tuple(book.data.keys()),
-                    "Name incorrect!",
-                    ignore_caps=True,
+                    "Enter Name: ", tuple(book.data.keys()), "Name incorrect!"
                 )
                 book.get_record(contact_name).show_birthday()
 
-            case "birthdays":
+            case "bdays":
 
                 for record in book.data.keys():
                     record = book.get_record(record)

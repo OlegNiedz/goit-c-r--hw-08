@@ -43,6 +43,7 @@ class Phones(UserList):
         ptrn = r"[\d\+]+"
         phone = "".join(re.findall(ptrn, phone))
         phone.strip()
+        return phone
 
         #     raise ValueError("Invalid number! (must be 10 digits)")
 
@@ -56,12 +57,13 @@ class Phones(UserList):
 
     @input_error
     def set_phone(self, phone: str):
-
         phone = self.__normalize_phone__(phone)
         if len(phone) != 10 or self.__phone_exist__(phone):
+            print("Phone exist or Invalid format! (must be 10 digits)")
             raise(ValueError)
         else:
             self.data.append(phone)
+            
 
     @input_error
     def edit_phone(self, phone:str, new_phone=""):
@@ -69,6 +71,7 @@ class Phones(UserList):
         if self.__phone_exist__(phone):
             new_phone = self.__normalize_phone__(new_phone)
             if len(new_phone) != 10 or self.__phone_exist__(new_phone):
+                print("Phone exist or Invalid format! (must be 10 digits)")
                 raise(ValueError)
             else:
                 self.data[self.data.index(phone)] = new_phone
@@ -153,20 +156,25 @@ class AddressBook(UserDict):
             raise(ValueError)
         else:
             self.data[record.name.value] = record
-            print(f"{record} added")
+            print(record)
     
     @input_error
     def get_record(self, record_name: str) -> Record:
-        if record_name in self.data:
+        if record_name in self.data.keys():
             return self.data.get(record_name)
         else:
             print(f"Record {record_name} don't found!")
             return None
-
+    @input_error
     def show_all(self):
         for record_name in self.data:
             print(self.data.get(record_name))
-
+    
+    @input_error
     def delete_record(self, record_name):
-        if record_name in self.data:
+        if record_name in self.data.keys():
             self.data.__delitem__(record_name)
+            if record_name in self.data.keys():
+                raise(ValueError)
+            else:
+                print(f"contact {record_name} deleted")
