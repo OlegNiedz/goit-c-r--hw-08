@@ -93,7 +93,7 @@ class Phones(UserList):
 
 class Birthday(Field):
     def __init__(self, birthday=None):
-        self._birthday = birthday
+        self._birthday = None
 
     
     @property
