@@ -140,10 +140,10 @@ class Record:
         print(f"{self.name.value:15} birthday: {self.birthday}",end=added_str)
 
     def __str__(self):
-        return f"Contact: {self.name.value:15}, phones: {'; \n'.join(p for p in self.phones)}"
+        return f"Contact: {self.name.value:15}, phones: {'; '.join(p for p in self.phones)}"
 
     def __repr__(self) -> str:
-        return f"Contact: {self.name.value:15}, phones: {'; \n'.join(p for p in self.phones)}"
+        return f"Contact: {self.name.value:15}, phones: {'; '.join(p for p in self.phones)}"
 
 
 class AddressBook(UserDict):
